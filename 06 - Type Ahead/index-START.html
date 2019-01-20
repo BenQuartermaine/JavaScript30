@@ -15,7 +15,53 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+// Github cities data endpoint for fecth method 
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+  const cities = [];
+
+// Fetching data from the github cities repo
+  fetch(endpoint)
+    .then(blob => blob.json())
+    .then(data => cities.push(...data))
+
+// Filter function over the cities array
+  function search(wordToMatch, cities) {
+    return cities.filter(place => {
+      const regex = new RegExp(wordToMatch, 'gi');
+      return place.city.match(regex) || place.state.match(regex);
+    });
+  }
+// Displays a given number formatted with commas
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+// Organising the data return from the search method and displaying it in a list
+  function displayMatches() {
+    const matches = search(this.value, cities);
+
+    const html = matches.map(place => {
+      const regex = new RegExp(this.value, 'gi');
+      const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+      const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+      return `
+      <li>
+        <ul>${cityName}, ${stateName}</ul>
+        <ul>${numberWithCommas(place.population)}</ul>
+      </li>
+      `
+    }).join(' ');
+    suggestions.innerHTML = html;
+  }
+
+// DOM selectors and event listeners  
+  const searchInput = document.querySelector('.search');
+  const suggestions = document.querySelector('.suggestions');
+  searchInput.addEventListener('change', displayMatches);
+  searchInput.addEventListener('keyup', displayMatches);
+
 
 </script>
 </body>
