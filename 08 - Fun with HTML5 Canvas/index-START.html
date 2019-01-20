@@ -5,13 +5,80 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+  <div class="container">
+    <div class="about">
+      <h1>Hi, I'm Ben</h1>
+      <h2>Welcome to my canvas</h2>
+    </div>
+    <div class="canvas">
+      <canvas id="draw" width="50%" height="800"></canvas>
+    </div>
+  </div>
 <script>
+  const canvas = document.getElementById('draw');
+  const context = canvas.getContext('2d');
+  canvas.width = window.innerWidth * 0.55;
+  canvas.height = window.innerHeight ;
+
+  context.strokeStyle = '#2F69AE';
+  context.lineJoin = 'round';
+  context.lineCap = 'round';
+  context.lineWidth = '20'; 
+
+  let isDrawing = false;
+  let direction = true;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+
+  function draw(e) {
+    if (!isDrawing) return;
+    context.beginPath();
+    context.strokeStyle = `hsl(${hue}, 100%, 80%)`;
+    context.moveTo(lastX, lastY);
+    context.lineTo(e.offsetX, e.offsetY);
+    context.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+    
+    // incrementing hue so color changes
+    hue++;
+
+    // Setting the direction of the width 
+    if (context.lineWidth >= 60 || context.lineWidth <= 1) { direction = !direction;
+    }    
+    direction ? context.lineWidth++ : context.lineWidth--;
+  };
+
+// Setting lastX and lastY to the point the click happens before the mousemove listener is triggered
+  canvas.addEventListener('mousedown', (e) => {
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+    isDrawing = true;
+  });
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+  canvas.addEventListener('mousemove', draw);
 </script>
+
+
+
 
 <style>
   html, body {
-    margin: 0;
+    margin: 10px 10px;
+  }
+  .container {
+    display: flex;
+  }
+  .about {
+    min-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+  }
+  .canvas {
+    border: solid 5px #2F69AE;
   }
 </style>
 
