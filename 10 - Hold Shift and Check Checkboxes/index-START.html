@@ -57,6 +57,7 @@
 
   -->
   <div class="inbox">
+    <button id="button">Deselect</button>
     <div class="item">
       <input type="checkbox">
       <p>This is an inbox layout.</p>
@@ -93,9 +94,38 @@
       <input type="checkbox">
       <p>Don't forget to tweet your result!</p>
     </div>
+    <button id="button">Deselect</button>
   </div>
 
 <script>
+  const items = document.querySelectorAll('.item input');
+  const buttons = document.querySelectorAll('button');
+
+  let lastChecked;
+
+  function multiSelect(e) {
+    let inBetween = false;
+
+    if (e.shiftKey && this.checked) {
+      items.forEach(checkbox => {
+        console.log('running interference')
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        }
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+    lastChecked = this; 
+  }
+
+  function deselect() {
+    items.forEach(item => item.checked = false)
+  }
+
+  buttons.forEach(button => button.addEventListener('click', deselect));
+  items.forEach(item => item.addEventListener("click", multiSelect));
 </script>
 </body>
 </html>

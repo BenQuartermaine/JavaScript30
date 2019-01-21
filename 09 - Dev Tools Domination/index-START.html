@@ -40,6 +40,17 @@
     // counting
 
     // timing
+    console.time('timing data')
+    const string = 'https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json'
+    fetch(string)
+      .then(blob => blob.json())
+      .then(data => data.forEach(point => {
+        if (point.includes('m')) {
+          console.log(`${point.name} is a gr8 city`) 
+          }
+        })
+      )
+      console.timeEnd('timing data')
 
   </script>
 </body>
