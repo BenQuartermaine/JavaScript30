@@ -57,7 +57,8 @@
 
   -->
   <div class="inbox">
-    <button id="button">Deselect</button>
+    <button id="deselect">Deselect All</button>
+    <button id="select">Select All</button>
     <div class="item">
       <input type="checkbox">
       <p>This is an inbox layout.</p>
@@ -94,38 +95,43 @@
       <input type="checkbox">
       <p>Don't forget to tweet your result!</p>
     </div>
-    <button id="button">Deselect</button>
+    <button id="deselect">Deselect All</button>
+    <button id="select">Select All</button>
   </div>
 
 <script>
-  const items = document.querySelectorAll('.item input');
-  const buttons = document.querySelectorAll('button');
-
+  const checkboxes = document.querySelectorAll('.inbox input[type ="checkbox"]');
+  const deselectButtons = document.querySelectorAll('#deselect');
+  const selectButtons = document.querySelectorAll('#select');
   let lastChecked;
 
   function multiSelect(e) {
     let inBetween = false;
-
     if (e.shiftKey && this.checked) {
-      items.forEach(checkbox => {
-        console.log('running interference')
+      checkboxes.forEach(checkbox => {
         if (checkbox === this || checkbox === lastChecked) {
           inBetween = !inBetween;
+          console.log(inBetween, 'in the checkbox loop')
         }
         if (inBetween) {
           checkbox.checked = true;
         }
-      });
+      })
     }
-    lastChecked = this; 
+    lastChecked = this;
   }
 
-  function deselect() {
-    items.forEach(item => item.checked = false)
+  function deselectCheckboxes() {
+    checkboxes.forEach(checkbox => checkbox.checked = false)
+  }
+  function selectCheckboxes() {
+    checkboxes.forEach(checkbox => checkbox.checked = true)
   }
 
-  buttons.forEach(button => button.addEventListener('click', deselect));
-  items.forEach(item => item.addEventListener("click", multiSelect));
+  
+  deselectButtons.forEach(button => button.addEventListener('click', deselectCheckboxes))
+  selectButtons.forEach(button => button.addEventListener('click', selectCheckboxes))
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', multiSelect))
 </script>
 </body>
 </html>
