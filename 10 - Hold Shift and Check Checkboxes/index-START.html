@@ -111,7 +111,6 @@
       checkboxes.forEach(checkbox => {
         if (checkbox === this || checkbox === lastChecked) {
           inBetween = !inBetween;
-          console.log(inBetween, 'in the checkbox loop')
         }
         if (inBetween) {
           checkbox.checked = true;
@@ -120,7 +119,6 @@
     }
     lastChecked = this;
   }
-
   function deselectCheckboxes() {
     checkboxes.forEach(checkbox => checkbox.checked = false)
   }
@@ -128,7 +126,6 @@
     checkboxes.forEach(checkbox => checkbox.checked = true)
   }
 
-  
   deselectButtons.forEach(button => button.addEventListener('click', deselectCheckboxes))
   selectButtons.forEach(button => button.addEventListener('click', selectCheckboxes))
   checkboxes.forEach(checkbox => checkbox.addEventListener('click', multiSelect))
