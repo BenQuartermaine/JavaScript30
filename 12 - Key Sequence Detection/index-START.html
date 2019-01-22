@@ -6,7 +6,21 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
+
+<h1 class="header"></h1>
+
 <script>
+  const keysPressed = [];
+  const secretCode = 'ben';
+
+  window.addEventListener('keyup', (e) => {
+    keysPressed.push(e.key);
+    keysPressed.splice(-keysPressed.length - 1, keysPressed.length - secretCode.length);
+    string = keysPressed.join('');
+    if (string === secretCode) {
+      cornify_add()
+    }
+  });
 </script>
 </body>
 </html>
