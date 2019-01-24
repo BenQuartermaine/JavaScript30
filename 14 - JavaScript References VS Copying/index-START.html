@@ -8,7 +8,7 @@
 
   <script>
     // start with strings, numbers and booleans
-
+// 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
@@ -41,6 +41,12 @@
       name: 'Wes Bos',
       age: 80
     };
+
+    // cloning an object
+
+    const person2 = Object.assign({}, person, {favoriteColor: 'blue', skills: 'Javascript'});
+
+    console.log(person2, person);
 
     // and think we make a copy:
 
