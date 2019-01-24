@@ -69,22 +69,11 @@
 
       if (isHalfShown && isNotScrolledPast) {
         sliderImage.classList.add('active');
-        console.log('sliding')
       } else {
         sliderImage.classList.remove('active');
-        console.log('not sliding')
       }
-
     });
-
-    // Find half way down an image for each slider image
-    // Find bottom of image
-    // Find if the image has been scrolled past
-    // If statement adding & removing active class
-    // if ()
-
   };
-
 
   window.addEventListener('scroll', debounce(handleScroll));
 
