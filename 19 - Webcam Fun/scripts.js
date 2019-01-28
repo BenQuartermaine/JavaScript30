@@ -22,7 +22,6 @@ function paintToCanvas() {
   const width = video.videoWidth; 
   canvas.height = height;
   canvas.width = width;
-
   
   return setInterval(() => {
     ctx.drawImage(video, 0, 0, width, height)
