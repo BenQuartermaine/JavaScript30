@@ -37,6 +37,29 @@
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
 
+  function randomTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  };
+
+
+  function peekaboo(min, max) {
+    const number = Math.round(Math.random() * (max - min) + min)
+    holes[number].classList.add('up');
+    setTimeout(() => holes[number].classList.remove('up'), randomTime(200, 1000))
+    // holes[random(1, 6)];
+    // rando.classList.add('up');
+  };
+
+  function clickedHole(event) {
+    console.log(event);
+    if (event.isTrusted) {
+      event.target.classList.toggle('up');
+    }
+      // setTimeout(event.target.classList.remove('up'), 2000)
+  };
+
+  holes.forEach(hole => hole.addEventListener('click', clickedHole))
+
 </script>
 </body>
 </html>
